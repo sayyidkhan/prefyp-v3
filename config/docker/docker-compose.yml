@@ -11,7 +11,5 @@ services:
       - ./data:/data/db
     ports:
       - 5480:5432
-    environment:
-      - POSTGRES_USER=username
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=dev
+    env_file:
+      - .env_template
