@@ -3,7 +3,7 @@ version: '3.1'
 
 services:
 
-  mongo:
+  postgres:
     container_name: prefyp_postgres
     image: postgres:12
     restart: always
@@ -12,6 +12,6 @@ services:
     ports:
       - 5480:5432
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=username
-      - MONGO_INITDB_ROOT_PASSWORD=password
-      - MONGO_INITDB_ROOT_DATABASE=dev
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=dev
