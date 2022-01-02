@@ -7,38 +7,59 @@ import Auth0Provider from "next-auth/providers/auth0"
 import CredentialProvider from "next-auth/providers/credentials"
 // import AppleProvider from "next-auth/providers/apple"
 // import EmailProvider from "next-auth/providers/email"
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs';
+import { TypeORMLegacyAdapter } from "@next-auth/typeorm-legacy-adapter"
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
+import { ConnectionOptions } from "typeorm"
+import { UserEntity, AccountEntity, SessionEntity,VerificationTokenEntity } from "../../../lib/entities"
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const { PrismaClient } = require("@prisma/client");
 
+
+const connection: ConnectionOptions = {
+  type: "postgres",
+  host: "localhost",
+  port: parseInt(process.env.DATABASE_PORT),
+  username: "username",
+  password: "password",
+  database: "dev",
+  logging: true,
+  synchronize: true,
+  namingStrategy: new SnakeNamingStrategy(),
+  entities: [
+      UserEntity,
+      AccountEntity,
+      SessionEntity,
+      VerificationTokenEntity,
+  ]
+}
+
+const prisma = new PrismaClient()
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
 export default NextAuth({
+  adapter: PrismaAdapter(prisma),
   // https://next-auth.js.org/configuration/providers
   providers: [
     CredentialProvider({
       name: "credentials",
       credentials: {
         username: {
-          label: "email",
+          label: "Username",
           type: "text",
           placeholder: "john",
         },
         password: { label: "Password", type: "password" }
       },
-      authorize: (credential) => {
-        
+      authorize: async (credential) => {  
+        // get the credentials      
         const username = credential.username;
         const password = credential.password;
-        // todo: database lookup
-        if (username === "john" && password === "test") {
-          return {
-            id: 2,
-            name: "john",
-            email: "johndoe@test.com"
-          };
-        }
-        // login failed
-        return null;
+        // perform a database call & login
+        return loginUser({ username, password });
       }
     }),
   ],
@@ -46,6 +67,7 @@ export default NextAuth({
   // It is used to sign cookies and to sign and encrypt JSON Web Tokens, unless
   // a separate secret is defined explicitly for encrypting the JWT.
   secret: process.env.SECRET,
+  
 
   session: {
     // Use JSON Web Tokens for session instead of database sessions.
@@ -122,23 +144,76 @@ export default NextAuth({
   debug: true,
 })
 
-const loginUser = async ({user, password}) => {
-  if(!user.password) {
-    throw new Error("Accounts Have to login with password.");
-  }
+const loginUser = async ({username, password}) => {
+  // if(!user.password) {
+  //   throw new Error("Accounts Have to login with password.");
+  // }
 
-  const isMatch = await bcrypt.compare(password, user.password);
-  if(!isMatch) {
-    throw new Error("Password Incorrect.");
+  // const isMatch = await bcrypt.compare(password, user.password);
+  // if(!isMatch) {
+  //   throw new Error("Password Incorrect.");
+  // }
+
+  // perform a database call
+  async function getUser() {
+    const user = await prisma.user.findUnique({
+      where: { "username" : username }
+    });
+    return user;
   }
-  
+  // return the user for login
+  const user = getUser();
   return user;
 };
 
-const registerUser = async({email, password}) => {
+export const registerBasicUser = async({email, username, password}) => {
+  // empty validation
+  if(!email) {
+    throw new Error("Email cannot be empty");
+  }
+  if(!username) {
+    throw new Error("Username cannot be empty");
+  }
+  if(!password) {
+    throw new Error("Password cannot be empty");
+  }
+  // check existing record validation
+  async function validateUser(criteria, value) {
+    // let whereClause = {};
+    // whereClause[criteria] = value;
+    const user = await prisma.user.findUnique({
+      where: { [criteria] : value }
+    });
+    return user;
+  }
+  const validateUsernameExist = await validateUser("username" , username);
+  if(validateUsernameExist !== null) {
+    throw new Error("This username existed, please choose another username.");
+  }
+  const validateEmailExist = await validateUser("email" , email);
+  if(validateEmailExist !== null) {
+    throw new Error("This email existed, please choose another email.");
+  }
+
+  // encrypt the password
   const saltRounds = 10;
   const hashPass = await bcrypt.hash(password, saltRounds)
   // save the record into the database
-  // const newUser = new Users({ email, password: hashPass })
-  // await newUser.save()
+  async function createUser() {
+    const user = {
+      "email": email,
+      "username": username,
+      "password": hashPass
+    };
+    const _createUser = await prisma.user.create({ data: user });
+    return _createUser;
+  };
+  
+  return createUser()
+  .catch((e) => {
+    throw e
+  })
+  .finally(async () => {
+    await prisma.$disconnect()
+  });
 }
