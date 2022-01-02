@@ -11,30 +11,11 @@ import bcrypt from 'bcryptjs';
 import { TypeORMLegacyAdapter } from "@next-auth/typeorm-legacy-adapter"
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { ConnectionOptions } from "typeorm"
-import { UserEntity, AccountEntity, SessionEntity,VerificationTokenEntity } from "../../../lib/entities"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const { PrismaClient } = require("@prisma/client");
 
-
-const connection: ConnectionOptions = {
-  type: "postgres",
-  host: "localhost",
-  port: parseInt(process.env.DATABASE_PORT),
-  username: "username",
-  password: "password",
-  database: "dev",
-  logging: true,
-  synchronize: true,
-  namingStrategy: new SnakeNamingStrategy(),
-  entities: [
-      UserEntity,
-      AccountEntity,
-      SessionEntity,
-      VerificationTokenEntity,
-  ]
-}
 
 const prisma = new PrismaClient()
 
