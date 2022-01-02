@@ -8,9 +8,6 @@ import CredentialProvider from "next-auth/providers/credentials"
 // import AppleProvider from "next-auth/providers/apple"
 // import EmailProvider from "next-auth/providers/email"
 import bcrypt from 'bcryptjs';
-import { TypeORMLegacyAdapter } from "@next-auth/typeorm-legacy-adapter"
-import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
-import { ConnectionOptions } from "typeorm"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
