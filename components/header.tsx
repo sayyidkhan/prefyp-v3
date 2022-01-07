@@ -8,6 +8,7 @@ import styles from "./header.module.css"
 export default function Header() {
   const { data: session, status } = useSession()
   const loading = status === "loading"
+  const buttonSize = { "height" : "4em" , "width" : "8em" };
 
   return (
     <header>
@@ -26,8 +27,16 @@ export default function Header() {
                 You are not signed in
               </span>
               <a
+                href={`/account/register/`}
+                className={styles.buttonPrimary}
+                style={{ background : "none", color : "blue" }}
+              >
+                Register
+              </a>
+              <a
                 href={`/api/auth/signin`}
                 className={styles.buttonPrimary}
+                style={{ marginRight : "0.5em" }}
                 onClick={(e) => {
                   e.preventDefault()
                   signIn()
@@ -35,6 +44,7 @@ export default function Header() {
               >
                 Sign in
               </a>
+            
             </>
           )}
           {session && (

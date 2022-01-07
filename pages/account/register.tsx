@@ -1,4 +1,4 @@
-import { Alert, Box, Button, CircularProgress, Grid, Stack, TextField } from '@mui/material';
+import { Alert, Box, Button, CircularProgress, Grid, Link, Stack, TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React, { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
@@ -21,6 +21,8 @@ const useStyles = makeStyles({
 // this MuiExample_Component is required (do not remove, otherwise will throw CSS error)
 { name: "MuiExample_Component" });
 
+
+
 const RegisterPage = () => {
   const classes = useStyles();
   // create state variables for each input
@@ -32,6 +34,8 @@ const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [timeOut, sto] = useState<boolean>(false);
 
+
+
   useEffect(() => {
     // when the component is mounted, the alert is displayed for 3 seconds
     setTimeout(() => {
@@ -40,8 +44,8 @@ const RegisterPage = () => {
   }, []);
 
   const registerUser = async () => {
-      const hostname = process.env.NEXTAUTH_URL;
-      const res = await fetch(`http://localhost:3000/api/user/register`, {
+      const hostname = process.env.NEXT_PUBLIC_NEXTAUTH_URL;
+      const res = await fetch(`${hostname}/api/user/register`, {
           method : 'POST',
           headers: {
             'Accept': 'application/json',
@@ -111,11 +115,14 @@ const RegisterPage = () => {
             />
         </div>
         <br/>
-        <div>
-          <Button type="submit" variant="contained" color="primary">
+        <Stack alignItems="center">
+          <Link href="/">
+            Go Back
+          </Link>
+          <Button type="submit" variant="contained" color="primary" style={{ margin : "1em" }}>
             Signup
           </Button>
-        </div>
+        </Stack>
         
         {isLoading ? <Box mt={3}><CircularProgress size={24} /> awaiting response... 😴 😴 😴</Box> : null }
         {statusMessage !== "" &&
