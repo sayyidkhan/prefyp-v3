@@ -1,4 +1,9 @@
-import { registerBasicUser } from "../auth/[...nextauth]";
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const { PrismaClient } = require("@prisma/client");
+import bcrypt from 'bcryptjs';
+
+const prisma = new PrismaClient();
 
 export default async (req, res) => {    
     let body = {};
@@ -26,5 +31,57 @@ export default async (req, res) => {
         }
     }
     
+}
+
+const registerBasicUser = async({email, username, password}) => {
+    // empty validation
+    if(!email) {
+      throw new Error("Email cannot be empty");
+    }
+    if(!username) {
+      throw new Error("Username cannot be empty");
+    }
+    if(!password) {
+      throw new Error("Password cannot be empty");
+    }
+    // check existing record validation
+    async function validateUser(criteria, value) {
+      // let whereClause = {};
+      // whereClause[criteria] = value;
+      const user = await prisma.user.findUnique({
+        where: { [criteria] : value }
+      });
+      return user;
+    }
+    const validateUsernameExist = await validateUser("username" , username);
+    if(validateUsernameExist !== null) {
+      throw new Error("This username existed, please choose another username.");
+    }
+    const validateEmailExist = await validateUser("email" , email);
+    if(validateEmailExist !== null) {
+      throw new Error("This email existed, please choose another email.");
+    }
+  
+    // encrypt the password
+    const saltRounds = 10;
+    const hashPass = await bcrypt.hash(password, saltRounds)
+    // save the record into the database
+    async function createUser() {
+      const user = {
+        "email": email,
+        "username": username,
+        "password": hashPass
+      };
+      const _createUser = await prisma.user.create({ data: user });
+      return _createUser;
+    };
+    
+    return createUser()
+    .catch((e) => {
+      throw e
+    })
+    .finally(async () => {
+      await prisma.$disconnect()
+    });
   }
   
