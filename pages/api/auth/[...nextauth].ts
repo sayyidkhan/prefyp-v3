@@ -9,12 +9,10 @@ import CredentialProvider from "next-auth/providers/credentials"
 // import EmailProvider from "next-auth/providers/email"
 import bcrypt from 'bcryptjs';
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-const { PrismaClient } = require("@prisma/client");
+import { PrismaClient } from "@prisma/client";
 
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
