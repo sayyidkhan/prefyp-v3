@@ -19,7 +19,7 @@ export default async (req, res) => {
         const email = req.body.email;
         
         try {
-            //const result = await registerBasicUser({ email, username, password });
+            const result = await registerBasicUser({ email, username, password });
             const successMsg = `Username ${username} Created Successfully`;
             console.log(successMsg);
             res.status(200).json({ "message" : successMsg });
