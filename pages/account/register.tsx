@@ -45,7 +45,7 @@ const RegisterPage = () => {
 
   const registerUser = async () => {
       const hostname = process.env.NEXT_PUBLIC_NEXTAUTH_URL;
-      const res = await fetch(`${hostname}/api/user/register`, {
+      const res = await fetch(`/api/user/register`, {
           method : 'POST',
           headers: {
             'Accept': 'application/json',
