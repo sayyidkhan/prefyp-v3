@@ -20,8 +20,10 @@ const BtnLogin = ({ children, provider, bgColor, txtColor, csrfToken, options })
 
         if (provider.id === "credentials") {
             if (res.error) {
-                console.log(res.error);
                 return toast.error(res.error)
+            }
+            else {
+                return toast.success("Successfully login...");
             }
 
             return Router.push("/")
