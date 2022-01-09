@@ -121,13 +121,8 @@ export default NextAuth({
 })
 
 const loginUser = async ({username, password}) => {
-  if(!username.password) {
+  if(!password) {
     throw new Error("Accounts Have to login with password.");
-  }
-
-  const isMatch = await bcrypt.compare(password, username.password);
-  if(!isMatch) {
-    throw new Error("Password Incorrect.");
   }
 
   // perform a database call
@@ -139,7 +134,14 @@ const loginUser = async ({username, password}) => {
   }
   // return the user for login
   const user = getUser();
+  console.log(user);
+  // const isMatch = await bcrypt.compare(password, user.password);
+  // if(!isMatch) {
+  //   throw new Error("Password Incorrect.");
+  // }
+  
   return user;
+  
 };
 
 
