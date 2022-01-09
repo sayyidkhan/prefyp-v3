@@ -23,10 +23,11 @@ const BtnLogin = ({ children, provider, bgColor, txtColor, csrfToken, options })
                 return toast.error(res.error)
             }
             else {
-                return toast.success("Successfully login...");
+                toast.success("Successfully login...");
+                return Router.push("/");
             }
 
-            return Router.push("/")
+            
         }
     }
     return (
