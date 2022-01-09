@@ -76,7 +76,7 @@ export default NextAuth({
   // pages is not specified for that route.
   // https://next-auth.js.org/configuration/pages
   pages: {
-    // signIn: '/auth/signin',  // Displays signin buttons
+    signIn: '/account/signin',  // Displays signin page
     // signOut: '/auth/signout', // Displays form with sign out button
     // error: '/auth/error', // Error code passed in query string as ?error=
     // verifyRequest: '/auth/verify-request', // Used for check email page
@@ -133,15 +133,13 @@ const loginUser = async ({username, password}) => {
     return user;
   }
   // return the user for login
-  const user = getUser();
-  console.log(user);
-  // const isMatch = await bcrypt.compare(password, user.password);
-  // if(!isMatch) {
-  //   throw new Error("Password Incorrect.");
-  // }
+  const user = await getUser();
+  const isMatch = await bcrypt.compare(password, user.password);
+  if(!isMatch) {
+    throw new Error("Password Incorrect.");
+  }
   
   return user;
-  
 };
 
 

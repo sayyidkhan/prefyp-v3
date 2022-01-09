@@ -20,6 +20,8 @@
 
 ## Overview
 
+#### Demo: https://prefyp-v3.vercel.app/
+
 NextAuth.js is a complete open source authentication solution for [Next.js](http://nextjs.org/) applications.
 
 This is an example application which shows how `next-auth` is applied to a basic Next.js app. It is also used in many of our CI workflows and other places where a concrete usage example is necessary. 
@@ -30,6 +32,7 @@ It can be found at [`next-auth-example.vercel.app`](https://next-auth-example.ve
 
 - Frontend: React JS + Next.JS
 - Backend: Express + Next.JS
+- Authentication: NextAuth Framework
 - Database: Postgres
 - Cloud Provider:
   1. Vercel - Hosting the backend and frontend
