@@ -9,7 +9,7 @@ import CredentialProvider from "next-auth/providers/credentials"
 // import EmailProvider from "next-auth/providers/email"
 import bcrypt from 'bcryptjs';
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 
 
 const prisma = new PrismaClient();

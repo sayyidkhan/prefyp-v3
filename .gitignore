@@ -113,3 +113,6 @@ dist
 # docker
 config/docker/data/*
 config/docker/data/
+
+# intellij
+.idea
