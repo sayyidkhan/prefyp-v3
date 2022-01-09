@@ -97,6 +97,11 @@ For more information about setting up a database, please check out the following
 
 ### 4. Start the application
 
+> Important: before running the app, run this command at least once
+```
+npx prisma generate
+```
+
 To run your site locally, use:
 
 ```
