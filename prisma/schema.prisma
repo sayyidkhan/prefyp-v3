@@ -9,6 +9,8 @@ generator client {
   //previewFeatures = ["referentialActions"] // You won't need this in Prisma 3.X or higher.
 }
 
+// BASE SCHEMA
+
 model Account {
   id                 String  @id @default(cuid())
   userId             String
@@ -56,4 +58,12 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+// ADDED SCHEMA - ADD NEW TABLES BELOW HERE ONWARDS
+
+model UserGroup {
+  id            String    @id @default(cuid())
+  user_id       String
+  user_type     String?
 }
