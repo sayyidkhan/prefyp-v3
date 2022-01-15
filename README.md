@@ -118,6 +118,16 @@ npm run build
 npm run start
 ```
 
+### 5. Database configuration
+
+use this command to sync the `prisma.schema` with the cloud
+```bash
+npx prisma db push
+```
+
+currently our database does not support `npx prisma migrate`
+todo: need to look for a workaround to address this isuse
+
 ### 5. Preparing for Production
 
 ##### Environment Variables required for production
