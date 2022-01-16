@@ -30,8 +30,8 @@ export default NextAuth({
         },
         password: { label: "Password", type: "password" }
       },
-      authorize: async (credential) => {  
-        // get the credentials      
+      authorize: async (credential) => {
+        // get the credentials
         const username = credential.username;
         const password = credential.password;
         // perform a database call & login
@@ -43,7 +43,7 @@ export default NextAuth({
   // It is used to sign cookies and to sign and encrypt JSON Web Tokens, unless
   // a separate secret is defined explicitly for encrypting the JWT.
   secret: process.env.SECRET,
-  
+
 
   session: {
     // Use JSON Web Tokens for session instead of database sessions.
@@ -120,7 +120,7 @@ export default NextAuth({
   debug: true,
 })
 
-const loginUser = async ({username, password}) => {
+export const loginUser = async ({username, password}) => {
   if(!password) {
     throw new Error("Accounts Have to login with password.");
   }
@@ -138,12 +138,12 @@ const loginUser = async ({username, password}) => {
   if(!isMatch) {
     throw new Error("Password Incorrect.");
   }
-  
+
   return user;
 };
 
 
-export const registerBasicUser = async({email, username, password}) => {
+export const registerBasicUser = async({email, username, password }) => {
   // empty validation
   if(!email) {
     throw new Error("Email cannot be empty");
@@ -180,12 +180,12 @@ export const registerBasicUser = async({email, username, password}) => {
     const user = {
       "email": email,
       "username": username,
-      "password": hashPass
+      "password": hashPass,
     };
     const _createUser = await prisma.user.create({ data: user });
     return _createUser;
   };
-  
+
   return createUser()
   .catch((e) => {
     throw e

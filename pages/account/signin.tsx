@@ -15,7 +15,6 @@ const Login = ({ providers, session, csrfToken }) => {
     if (session) {
       Router.push('/');
     }
-    console.log(Router.query);
   }, [session])
 
   useEffect(() => {

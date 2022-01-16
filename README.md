@@ -38,6 +38,12 @@ It can be found at [`next-auth-example.vercel.app`](https://next-auth-example.ve
   1. Vercel - Hosting the backend and frontend
   2. AWS - AWS RDS, For database storage
 
+
+#### Additional Documentation
+
+- [API Documentation](https://www.postman.com/dark-comet-642715/workspace/prefyp-v3/)
+
+
 #### About NextAuth.js
 
 NextAuth.js is an easy to implement, full-stack (client/server) open source authentication library designed for [Next.js](https://nextjs.org) and [Serverless](https://vercel.com).
@@ -45,6 +51,8 @@ NextAuth.js is an easy to implement, full-stack (client/server) open source auth
 Go to [next-auth.js.org](https://next-auth.js.org) for more information and documentation.
 
 > *NextAuth.js is not officially associated with Vercel or Next.js.*
+
+
 
 ## Getting Started
 
@@ -118,7 +126,36 @@ npm run build
 npm run start
 ```
 
-### 5. Preparing for Production
+### 5. Database configuration
+
+use this command to sync the `prisma.schema` with the cloud
+```bash
+npx prisma db push
+```
+
+currently our database does not support `npx prisma migrate`
+todo: need to look for a workaround to address this isuse
+
+### 6. Additional configuration
+
+the additional configuration is optional to perform but covers additional information, which u may require as u progress 
+to expand on building on the application.
+
+###### how to create superuser
+we need superuser so you have access to all parts of the application. basic user only do not 
+have administrator benefits.
+
+there is two ways to be a superuser.
+1st way is we need to perform an API insertion via a `post request` or via `command line` program
+2nd way is to have your account nominated to be a superuser from an existing superuser
+
+**1st way of performing API insertion (via post request)**
+use postman or any application which can send data to the backend
+the `baseurl` should be the url endpoint you would like to hit
+eg. localhost:3000
+![image info](./public/documentation_img/create_superuser.png)
+
+### 7. Preparing for Production
 
 ##### Environment Variables required for production
 - SECRET
@@ -143,6 +180,17 @@ Do not forget to set the environment variables for the Client ID and Client Secr
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Superuser Access
+Superuser Access is basically an access given to user that have all access in the system.
+To create a superuser access, the user will need to run a query on the terminal in order to be able to create a new user.
+
+> Steps to create a superuser:
+> Firstly, the app must be running with a database connected to either -> AWS / HEROKU / PRISMA.IO / DOCKER / POSTGRES
+> Secondly, run the command below
+```
+npx ts-node config/superuser/create_superuser.ts
+```
 
 ## Acknowledgements
 
