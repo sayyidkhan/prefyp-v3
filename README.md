@@ -41,7 +41,7 @@ It can be found at [`next-auth-example.vercel.app`](https://next-auth-example.ve
 
 #### Additional Documentation
 
-- [API Documentation](https://www.postman.com/dark-comet-642715/workspace/prefyp-v3/)
+- [API Documentation - (POSTMAN)](https://www.postman.com/dark-comet-642715/workspace/prefyp-v3/)
 
 
 #### About NextAuth.js
@@ -127,6 +127,14 @@ npm run start
 ```
 
 ### 5. Database configuration
+For this project we are using the `postgres` database for the database storage.
+A database adapter is required to provide ORM(object relation mapping) to automatically
+map records in the database with the classes & objects in the server.
+
+- postgres (database storage)
+- prisma (database adapter)
+- prisma.io & heroku (cloud OLTP / OLAP) -> basically a GUI to view the database
+- heroku & AWS (cloud hosting provider)
 
 use this command to sync the `prisma.schema` with the cloud
 ```bash
@@ -134,7 +142,7 @@ npx prisma db push
 ```
 
 currently our database does not support `npx prisma migrate`
-todo: need to look for a workaround to address this isuse
+todo: need to look for a workaround to address this issue
 
 ### 6. Additional configuration
 
