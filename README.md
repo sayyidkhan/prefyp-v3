@@ -38,6 +38,12 @@ It can be found at [`next-auth-example.vercel.app`](https://next-auth-example.ve
   1. Vercel - Hosting the backend and frontend
   2. AWS - AWS RDS, For database storage
 
+
+#### Additional Documentation
+
+- [API Documentation](https://www.postman.com/dark-comet-642715/workspace/prefyp-v3/)
+
+
 #### About NextAuth.js
 
 NextAuth.js is an easy to implement, full-stack (client/server) open source authentication library designed for [Next.js](https://nextjs.org) and [Serverless](https://vercel.com).
@@ -45,6 +51,8 @@ NextAuth.js is an easy to implement, full-stack (client/server) open source auth
 Go to [next-auth.js.org](https://next-auth.js.org) for more information and documentation.
 
 > *NextAuth.js is not officially associated with Vercel or Next.js.*
+
+
 
 ## Getting Started
 
@@ -128,7 +136,26 @@ npx prisma db push
 currently our database does not support `npx prisma migrate`
 todo: need to look for a workaround to address this isuse
 
-### 5. Preparing for Production
+### 6. Additional configuration
+
+the additional configuration is optional to perform but covers additional information, which u may require as u progress 
+to expand on building on the application.
+
+###### how to create superuser
+we need superuser so you have access to all parts of the application. basic user only do not 
+have administrator benefits.
+
+there is two ways to be a superuser.
+1st way is we need to perform an API insertion via a `post request` or via `command line` program
+2nd way is to have your account nominated to be a superuser from an existing superuser
+
+**1st way of performing API insertion (via post request)**
+use postman or any application which can send data to the backend
+the `baseurl` should be the url endpoint you would like to hit
+eg. localhost:3000
+![image info](./public/documentation_img/create_superuser.png)
+
+### 7. Preparing for Production
 
 ##### Environment Variables required for production
 - SECRET
