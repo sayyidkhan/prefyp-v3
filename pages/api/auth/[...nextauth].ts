@@ -120,7 +120,7 @@ export default NextAuth({
   debug: true,
 })
 
-export const loginUser = async ({username, password}) => {
+const loginUser = async ({username, password}) => {
   if(!password) {
     throw new Error("Accounts Have to login with password.");
   }
@@ -143,7 +143,7 @@ export const loginUser = async ({username, password}) => {
 };
 
 
-export const registerBasicUser = async({email, username, password }) => {
+export const registerBasicUser = async({email, username, password}) => {
   // empty validation
   if(!email) {
     throw new Error("Email cannot be empty");
@@ -180,7 +180,7 @@ export const registerBasicUser = async({email, username, password }) => {
     const user = {
       "email": email,
       "username": username,
-      "password": hashPass,
+      "password": hashPass
     };
     const _createUser = await prisma.user.create({ data: user });
     return _createUser;

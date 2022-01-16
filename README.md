@@ -144,17 +144,6 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-## Superuser Access
-Superuser Access is basically an access given to user that have all access in the system.
-To create a superuser access, the user will need to run a query on the terminal in order to be able to create a new user.
-
-> Steps to create a superuser:
-> Firstly, the app must be running with a database connected to either -> AWS / HEROKU / PRISMA.IO / DOCKER / POSTGRES
-> Secondly, run the command below
-```
-npx ts-node config/superuser/create_superuser.ts
-```
-
 ## Acknowledgements
 
 <a href="https://vercel.com?utm_source=nextauthjs&utm_campaign=oss">
