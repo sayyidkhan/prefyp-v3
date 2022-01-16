@@ -22,11 +22,11 @@ const BtnLogin = ({ children, provider, bgColor, txtColor, csrfToken, options })
             if (res.error) {
                 return toast.error(res.error)
             }
-            toast.success("Successfully login...");   
-            setTimeout(() => {
-                Router.push("/");
-            }, 3000);
-            return;      
+            else {
+                return toast.success("Successfully login...");
+            }
+
+            return Router.push("/")
         }
     }
     return (
@@ -49,15 +49,9 @@ const BtnLogin = ({ children, provider, bgColor, txtColor, csrfToken, options })
 
             <Grid container>
                 <Grid item xs>
-                    {
-                        <Link href="/" variant="body2">
-                            Go Back
-                        </Link>
-                    }
-                    {/* todo: should i do forget password ? */}
-                    {/* <Link href="#" variant="body2">
+                    <Link href="#" variant="body2">
                         Forgot password?
-                    </Link> */}
+                    </Link>
                 </Grid>
                 <Grid item>
                     <Link href="/account/register/" variant="body2">

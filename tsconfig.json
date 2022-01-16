@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "emitDecoratorMetadata" : true,
     "target": "esnext",
     "lib": [
       "dom",
@@ -24,9 +24,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx",
-    "pages/protected.js"
-  ],
+    "**/*.tsx"
+, "pages/protected.js"  ],
   "exclude": [
     "node_modules"
   ]
