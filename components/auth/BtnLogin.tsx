@@ -24,7 +24,8 @@ const BtnLogin = ({ children, provider, bgColor, txtColor, csrfToken, options })
             }
             toast.success("Successfully login...");
             setTimeout(() => {
-                Router.push("/");
+                //Router.push("/");
+                window.location.reload();
             }, 3000);
             return;
         }
