@@ -33,6 +33,7 @@ It can be found at [`next-auth-example.vercel.app`](https://next-auth-example.ve
 - Frontend: React JS + Next.JS
 - Backend: Express + Next.JS
 - Authentication: NextAuth Framework
+- Database ORM(Object Relation Mapping): PrismaDB
 - Database: Postgres
 - Cloud Provider:
   1. Vercel - Hosting the backend and frontend
@@ -58,7 +59,7 @@ Go to [next-auth.js.org](https://next-auth.js.org) for more information and docu
 
 #### programs to install
 - node.js v10.16.3 and above (Please check ur node.js and install the latest version, as this version came in NOV 2021)
-
+- Docker *(Optional: it depends if you are going to run local database, otherwise docker is not required)
 
 
 #### NPM global files to install
