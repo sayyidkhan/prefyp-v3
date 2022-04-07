@@ -94,6 +94,20 @@ For more information about setting up a database, please check out the following
 
 * Docs: [next-auth.js.org/adapters/overview](https://next-auth.js.org/adapters/overview)
 * Adapters Repo: [nextauthjs/adapters](https://github.com/nextauthjs/adapters)
+* PrismaDB: [Prisma Client](https://www.prisma.io/)
+
+###### Setup Locally
+1. you will need docker installed
+2. 
+
+###### Connect to cloud (Prisma or AWS as a online database provider) *recommended approach if an cloud instance is available
+1. copy .env.local.example to .env.local
+2. update the `DATABASE_URL` accordingly
+3. before starting the application run
+   ```
+   npx prisma generate
+   ```
+4. you are good to go for database configuration !
 
 ### 3. Configure Authentication Providers
 
