@@ -94,6 +94,20 @@ For more information about setting up a database, please check out the following
 
 * Docs: [next-auth.js.org/adapters/overview](https://next-auth.js.org/adapters/overview)
 * Adapters Repo: [nextauthjs/adapters](https://github.com/nextauthjs/adapters)
+* PrismaDB: [Prisma Client](https://www.prisma.io/)
+
+###### Setup Locally
+1. you will need docker installed
+2. 
+
+###### Connect to cloud (Prisma or AWS as a online database provider) *recommended approach if an cloud instance is available
+1. copy .env.local.example to .env.local
+2. update the `DATABASE_URL` accordingly
+3. before starting the application run
+   ```
+   npx prisma generate
+   ```
+4. you are good to go for database configuration !
 
 ### 3. Configure Authentication Providers
 
@@ -166,6 +180,12 @@ eg. localhost:3000
 
 ### 7. Preparing for Production
 
+**An overview on how the deployment happens in this project**
+1. we use GITHUB for the code repository (u can choose to migrate it to another repository of your choice)
+2. we use GITHUB CI / CD functionality for the deployment of the code
+3. the code gets deployed in VERCEL (digital service provider)
+4. VERCEL will spin up an instance and expose the web application to the internet once the deployment is complete.
+
 ##### Environment Variables required for production
 - SECRET
 - NEXT_PUBLIC_NEXTAUTH_URL
@@ -200,6 +220,17 @@ To create a superuser access, the user will need to run a query on the terminal 
 ```
 npx ts-node config/superuser/create_superuser.ts
 ```
+
+## Github code deployment
+In July 2020, Github announced its deprecation of user passwords for all Git operations.
+From August 13, 2021, Github will no longer accept passwords when authenticating Git operations. 
+Once the GitHub passwords get deprecated, Git operations that use authentication will require 
+the use of token-based (GitHub User Access Token). 
+
+*BASICLY THE TLDR is you need to login on terminal using token authentication instead of password authentication.*
+
+[How to login with token authentication for github login on terminal](https://www.youtube.com/watch?v=PMP3RmhkzkA)
+
 
 ## Acknowledgements
 
