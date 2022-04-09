@@ -180,6 +180,12 @@ eg. localhost:3000
 
 ### 7. Preparing for Production
 
+**An overview on how the deployment happens in this project**
+1. we use GITHUB for the code repository (u can choose to migrate it to another repository of your choice)
+2. we use GITHUB CI / CD functionality for the deployment of the code
+3. the code gets deployed in VERCEL (digital service provider)
+4. VERCEL will spin up an instance and expose the web application to the internet once the deployment is complete.
+
 ##### Environment Variables required for production
 - SECRET
 - NEXT_PUBLIC_NEXTAUTH_URL
@@ -214,6 +220,17 @@ To create a superuser access, the user will need to run a query on the terminal 
 ```
 npx ts-node config/superuser/create_superuser.ts
 ```
+
+## Github code deployment
+In July 2020, Github announced its deprecation of user passwords for all Git operations.
+From August 13, 2021, Github will no longer accept passwords when authenticating Git operations. 
+Once the GitHub passwords get deprecated, Git operations that use authentication will require 
+the use of token-based (GitHub User Access Token). 
+
+*BASICLY THE TLDR is you need to login on terminal using token authentication instead of password authentication.*
+
+[How to login with token authentication for github login on terminal](https://www.youtube.com/watch?v=PMP3RmhkzkA)
+
 
 ## Acknowledgements
 
